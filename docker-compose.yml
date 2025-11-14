@@ -15,6 +15,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_catalog:/var/lib/postgresql/data
+  distributedcache:
+    image: redis
 
   catalog.api:
     container_name: catalog.api
@@ -36,6 +38,12 @@ services:
       # Keep VS/HTTPS dev certs if you use them
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.Api/Dockerfile
 
 volumes:
   postgres_catalog:

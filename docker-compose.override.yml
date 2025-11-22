@@ -54,9 +54,11 @@ services:
       - ConnectionStrings__Redis=distributedcache:6379
       - CacheSettings__MemoryAbsoluteExpirationSeconds=30   
       - CacheSettings__DistributedAbsoluteExpirationMinutes=60   
+      - GrpcSettings__DiscountUrl=https://discount.grpc:8081 
     depends_on:
       - basketdb
       - distributedcache
+      - discount.grpc 
     ports:
       - "6001:8080"
       - "6061:8081"
